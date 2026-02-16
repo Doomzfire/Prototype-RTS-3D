@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/camera_manager.gd" id="1_c"]
+
+[node name="Main" type="Node3D"]
+
+[node name="RTS_Camera" type="Node3D" parent="."]
+script = ExtResource("1_c")
+position = Vector3(0, 30, 20)
+rotation = Vector3(-0.9, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="RTS_Camera"]
+current = true

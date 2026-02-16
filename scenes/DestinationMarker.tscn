@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/destination_marker.gd" id="1_m"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_marker"]
+top_radius = 0.35
+bottom_radius = 0.35
+height = 0.04
+
+[node name="DestinationMarker" type="MeshInstance3D"]
+script = ExtResource("1_m")
+mesh = SubResource("CylinderMesh_marker")
+cast_shadow = 0
+material_override = null
