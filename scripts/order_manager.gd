@@ -21,7 +21,7 @@ func _handle_right_click(mouse_pos: Vector2) -> void:
 	if hit.is_empty():
 		return
 
-	var collider := hit["collider"]
+	var collider = hit.get("collider")
 	if collider is Unit and collider.team != 0:
 		for unit in units:
 			if is_instance_valid(unit):
@@ -56,4 +56,6 @@ func _raycast(mouse_pos: Vector2) -> Dictionary:
 	var end := origin + camera.project_ray_normal(mouse_pos) * 500.0
 	var query := PhysicsRayQueryParameters3D.create(origin, end)
 	query.collide_with_areas = false
-	return get_world_3d().direct_space_state.intersect_ray(query)
+	var space_state := get_viewport().get_world_3d().direct_space_state
+	var result: Dictionary = space_state.intersect_ray(query)
+	return result
