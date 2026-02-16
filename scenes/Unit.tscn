@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/unit.gd" id="1_u"]
+[ext_resource type="Script" path="res://scripts/health_component.gd" id="2_h"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_body"]
+radius = 0.4
+height = 1.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
+radius = 0.4
+height = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ring"]
+top_radius = 0.7
+bottom_radius = 0.7
+height = 0.05
+
+[node name="Unit" type="CharacterBody3D"]
+script = ExtResource("1_u")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_body")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_body")
+position = Vector3(0, 0.8, 0)
+
+[node name="SelectionIndicator" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_ring")
+position = Vector3(0, 0.02, 0)
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("2_h")
+
+[node name="HealthLabel" type="Label3D" parent="."]
+position = Vector3(0, 1.8, 0)
+billboard = 1
+text = "100/100"
+modulate = Color(0.8, 1, 0.8, 1)
+font_size = 30
+outline_size = 4
