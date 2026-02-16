@@ -81,10 +81,11 @@ func _pick_unit(mouse_pos: Vector2) -> Unit:
 	var end := origin + camera.project_ray_normal(mouse_pos) * 500.0
 	var query := PhysicsRayQueryParameters3D.create(origin, end)
 	query.collide_with_areas = false
-	var result := get_world_3d().direct_space_state.intersect_ray(query)
+	var space_state := get_viewport().get_world_3d().direct_space_state
+	var result: Dictionary = space_state.intersect_ray(query)
 	if result.is_empty():
 		return null
-	var collider := result["collider"]
+	var collider = result.get("collider")
 	if collider is Unit and collider.is_in_group("player_units"):
 		return collider
 	return null
