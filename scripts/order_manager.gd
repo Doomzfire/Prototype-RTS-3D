@@ -38,7 +38,7 @@ func _issue_group_move(units: Array[Unit], destination: Vector3) -> void:
 	var cols := int(ceil(sqrt(units.size())))
 	var spacing := 1.8
 	for i in units.size():
-		var row := i / cols
+		var row := floori(float(i) / float(cols))
 		var col := i % cols
 		var offset := Vector3((col - (cols - 1) * 0.5) * spacing, 0.0, row * spacing)
 		if is_instance_valid(units[i]):
