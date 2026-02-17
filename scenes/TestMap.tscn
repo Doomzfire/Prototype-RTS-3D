@@ -1,19 +1,13 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene format=3 uid="uid://ct8ttct4132ri"]
 
 [ext_resource type="PackedScene" path="res://scenes/units/GoldKeeper/GoldKeeperUnit.tscn" id="1_unit"]
 [ext_resource type="PackedScene" path="res://ui/HUD.tscn" id="2_hud"]
-[ext_resource type="Script" path="res://scripts/camera_manager.gd" id="3_cam"]
-[ext_resource type="Script" path="res://scripts/selection_manager.gd" id="4_sel"]
-[ext_resource type="Script" path="res://scripts/order_manager.gd" id="5_ord"]
-[ext_resource type="Script" path="res://scripts/combat_system.gd" id="6_com"]
-[ext_resource type="Script" path="res://scripts/audio_manager.gd" id="7_aud"]
+[ext_resource type="Script" uid="uid://cbyboykohxpog" path="res://scripts/camera_manager.gd" id="3_cam"]
+[ext_resource type="Script" uid="uid://barh7dqpa81bg" path="res://scripts/selection_manager.gd" id="4_sel"]
+[ext_resource type="Script" uid="uid://dfhgikym1meih" path="res://scripts/order_manager.gd" id="5_ord"]
+[ext_resource type="Script" uid="uid://b3ipem2x76kea" path="res://scripts/combat_system.gd" id="6_com"]
+[ext_resource type="Script" uid="uid://bl2nllilhydyn" path="res://scripts/audio_manager.gd" id="7_aud"]
 [ext_resource type="PackedScene" path="res://scenes/DestinationMarker.tscn" id="8_mark"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
-size = Vector2(100, 100)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_ground"]
-size = Vector3(100, 1, 100)
 
 [sub_resource type="Environment" id="Environment_default"]
 background_mode = 2
@@ -22,83 +16,85 @@ ambient_light_source = 3
 ambient_light_color = Color(0.7, 0.75, 0.85, 1)
 ambient_light_energy = 0.8
 
-[node name="Main" type="Node3D"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
+size = Vector2(100, 100)
 
-[node name="RTS_Camera" type="Node3D" parent="."]
+[sub_resource type="BoxShape3D" id="BoxShape3D_ground"]
+size = Vector3(100, 1, 100)
+
+[node name="Main" type="Node3D" unique_id=900250871]
+
+[node name="RTS_Camera" type="Node3D" parent="." unique_id=358240614]
 script = ExtResource("3_cam")
 
-[node name="Yaw" type="Node3D" parent="RTS_Camera"]
+[node name="Yaw" type="Node3D" parent="RTS_Camera" unique_id=1801184336]
 
-[node name="Pitch" type="Node3D" parent="RTS_Camera/Yaw"]
-rotation = Vector3(-0.9, 0, 0)
+[node name="Pitch" type="Node3D" parent="RTS_Camera/Yaw" unique_id=655334698]
+transform = Transform3D(1, 0, 0, 0, 0.62161, 0.7833269, 0, -0.7833269, 0.62161, 0, 0, 0)
 
-[node name="Camera3D" type="Camera3D" parent="RTS_Camera/Yaw/Pitch"]
-position = Vector3(0, 0, 36)
+[node name="Camera3D" type="Camera3D" parent="RTS_Camera/Yaw/Pitch" unique_id=1310182852]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 36)
 current = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2035091887]
 environment = SubResource("Environment_default")
 
-[node name="Sun" type="DirectionalLight3D" parent="."]
-rotation = Vector3(-0.7, 0.8, 0)
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=431421107]
+transform = Transform3D(0.6967067, -0.46213347, 0.5486642, 0, 0.7648422, 0.64421767, -0.7173561, -0.44883078, 0.5328707, 0, 0, 0)
 light_energy = 1.2
 
-[node name="Ground" type="StaticBody3D" parent="."]
-collision_layer = 1
-collision_mask = 1
+[node name="Ground" type="StaticBody3D" parent="." unique_id=1116406578]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=1896632096]
 mesh = SubResource("PlaneMesh_ground")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=2009406774]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("BoxShape3D_ground")
-position = Vector3(0, -0.5, 0)
 
-[node name="Managers" type="Node" parent="."]
+[node name="Managers" type="Node" parent="." unique_id=488169905]
 
-[node name="AudioManager" type="Node" parent="Managers"]
+[node name="AudioManager" type="Node" parent="Managers" unique_id=685373936]
 script = ExtResource("7_aud")
 
-[node name="SelectionManager" type="Node" parent="Managers"]
+[node name="SelectionManager" type="Node" parent="Managers" unique_id=794662085]
 script = ExtResource("4_sel")
 camera_path = NodePath("../../RTS_Camera/Yaw/Pitch/Camera3D")
 selection_box_path = NodePath("../../HUD/SelectionBox")
 
-[node name="OrderManager" type="Node" parent="Managers"]
+[node name="OrderManager" type="Node" parent="Managers" unique_id=415963808]
 script = ExtResource("5_ord")
 camera_path = NodePath("../../RTS_Camera/Yaw/Pitch/Camera3D")
 selection_manager_path = NodePath("../SelectionManager")
 marker_scene = ExtResource("8_mark")
 
-[node name="CombatSystem" type="Node" parent="Managers"]
+[node name="CombatSystem" type="Node" parent="Managers" unique_id=515075599]
 script = ExtResource("6_com")
 
-[node name="Units" type="Node3D" parent="."]
+[node name="Units" type="Node3D" parent="." unique_id=592689096]
 
-[node name="P1" parent="Units" instance=ExtResource("1_unit")]
-position = Vector3(-8, 0, 6)
-team = 0
+[node name="P1" parent="Units" unique_id=1480933133 instance=ExtResource("1_unit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 6)
+attack_range = 1.0
 
-[node name="P2" parent="Units" instance=ExtResource("1_unit")]
-position = Vector3(-6, 0, 8)
-team = 0
+[node name="P2" parent="Units" unique_id=1857867603 instance=ExtResource("1_unit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 8)
 
-[node name="P3" parent="Units" instance=ExtResource("1_unit")]
-position = Vector3(-4, 0, 6)
-team = 0
+[node name="P3" parent="Units" unique_id=1441548283 instance=ExtResource("1_unit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 6)
 
-[node name="E1" parent="Units" instance=ExtResource("1_unit")]
-position = Vector3(7, 0, -6)
+[node name="E1" parent="Units" unique_id=1655100757 instance=ExtResource("1_unit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -6)
 team = 1
 
-[node name="E2" parent="Units" instance=ExtResource("1_unit")]
-position = Vector3(9, 0, -8)
+[node name="E2" parent="Units" unique_id=100911836 instance=ExtResource("1_unit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, -8)
 team = 1
 
-[node name="E3" parent="Units" instance=ExtResource("1_unit")]
-position = Vector3(5, 0, -6)
+[node name="E3" parent="Units" unique_id=607773172 instance=ExtResource("1_unit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -6)
 team = 1
 
-[node name="HUD" parent="." instance=ExtResource("2_hud")]
+[node name="HUD" parent="." unique_id=1187399566 instance=ExtResource("2_hud")]
 selection_manager_path = NodePath("../Managers/SelectionManager")
 combat_system_path = NodePath("../Managers/CombatSystem")
