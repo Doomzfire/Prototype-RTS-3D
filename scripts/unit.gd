@@ -14,6 +14,7 @@ signal defeated(unit: Unit)
 @onready var selection_indicator: MeshInstance3D = $SelectionIndicator
 @onready var health: HealthComponent = $HealthComponent
 @onready var health_label: Label3D = $HealthLabel
+@onready var visual_anim: UnitVisualAnim = get_node_or_null("UnitVisualAnim") as UnitVisualAnim
 
 var move_target := Vector3.ZERO
 var has_move_target := false
@@ -58,6 +59,8 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector3.ZERO
 
 	move_and_slide()
+	if visual_anim != null:
+		visual_anim.set_move_speed(velocity.length())
 
 func set_selected(value: bool) -> void:
 	selected = value

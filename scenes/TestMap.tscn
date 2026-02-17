@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3]
 
-[ext_resource type="PackedScene" path="res://scenes/Unit.tscn" id="1_unit"]
+[ext_resource type="PackedScene" path="res://scenes/units/GoldKeeper/GoldKeeperUnit.tscn" id="1_unit"]
 [ext_resource type="PackedScene" path="res://ui/HUD.tscn" id="2_hud"]
 [ext_resource type="Script" path="res://scripts/camera_manager.gd" id="3_cam"]
 [ext_resource type="Script" path="res://scripts/selection_manager.gd" id="4_sel"]
