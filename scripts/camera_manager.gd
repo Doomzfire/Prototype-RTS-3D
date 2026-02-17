@@ -6,7 +6,7 @@ class_name CameraManager
 @export var edge_pan_margin := 16.0
 @export var zoom_speed := 2.0
 @export var smoothness := 8.0
-@export var min_zoom := 12.0
+@export var min_zoom := 6.0
 @export var max_zoom := 55.0
 @export var allow_rotation := true
 @export var rotation_speed := 1.6
