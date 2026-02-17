@@ -26,10 +26,14 @@ ambient_light_energy = 0.8
 
 [node name="RTS_Camera" type="Node3D" parent="."]
 script = ExtResource("3_cam")
-position = Vector3(0, 28, 22)
+
+[node name="Yaw" type="Node3D" parent="RTS_Camera"]
+
+[node name="Pitch" type="Node3D" parent="RTS_Camera/Yaw"]
 rotation = Vector3(-0.9, 0, 0)
 
-[node name="Camera3D" type="Camera3D" parent="RTS_Camera"]
+[node name="Camera3D" type="Camera3D" parent="RTS_Camera/Yaw/Pitch"]
+position = Vector3(0, 0, 36)
 current = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -57,12 +61,12 @@ script = ExtResource("7_aud")
 
 [node name="SelectionManager" type="Node" parent="Managers"]
 script = ExtResource("4_sel")
-camera_path = NodePath("../../RTS_Camera/Camera3D")
+camera_path = NodePath("../../RTS_Camera/Yaw/Pitch/Camera3D")
 selection_box_path = NodePath("../../HUD/SelectionBox")
 
 [node name="OrderManager" type="Node" parent="Managers"]
 script = ExtResource("5_ord")
-camera_path = NodePath("../../RTS_Camera/Camera3D")
+camera_path = NodePath("../../RTS_Camera/Yaw/Pitch/Camera3D")
 selection_manager_path = NodePath("../SelectionManager")
 marker_scene = ExtResource("8_mark")
 
