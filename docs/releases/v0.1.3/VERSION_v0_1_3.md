@@ -1,5 +1,5 @@
 # Version — Prototype RTS
-**Current Version:** v0.1.3
+**Release Version:** v0.1.3
 
 ## Latest releases
 - v0.1.3: GoldKeeper animation wiring (Idle/Walk/Attack/Death), forward-axis fix (Visual Y=180°), runtime AnimationPlayer discovery + loop enum fix
