@@ -18,6 +18,7 @@ height = 0.05
 script = ExtResource("1_unit")
 
 [node name="Visual" type="Node3D" parent="."]
+rotation_degrees = Vector3(0, 180, 0)
 
 [node name="GoldKeeperModel" parent="Visual" instance=ExtResource("2_gold")]
 
