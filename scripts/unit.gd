@@ -14,7 +14,7 @@ signal defeated(unit: Unit)
 @onready var selection_indicator: MeshInstance3D = $SelectionIndicator
 @onready var health: HealthComponent = $HealthComponent
 @onready var health_label: Label3D = $HealthLabel
-@onready var visual_anim: UnitVisualAnim = get_node_or_null("UnitVisualAnim") as UnitVisualAnim
+@onready var visual_anim: Node = get_node_or_null("AnimController") if get_node_or_null("AnimController") != null else get_node_or_null("UnitVisualAnim")
 
 var move_target := Vector3.ZERO
 var has_move_target := false
@@ -41,6 +41,8 @@ func _physics_process(delta: float) -> void:
 			look_at(Vector3(attack_target.global_position.x, global_position.y, attack_target.global_position.z), Vector3.UP)
 			if attack_timer <= 0.0:
 				attack_timer = attack_cooldown
+				if visual_anim != null and visual_anim.has_method("trigger_attack"):
+					visual_anim.call("trigger_attack")
 				attack_target.health.apply_damage(attack_damage)
 				AudioManager.instance.play_sfx("attack_hit")
 		else:
@@ -59,8 +61,8 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector3.ZERO
 
 	move_and_slide()
-	if visual_anim != null:
-		visual_anim.set_move_speed(velocity.length())
+	if visual_anim != null and visual_anim.has_method("set_move_speed"):
+		visual_anim.call("set_move_speed", velocity.length())
 
 func set_selected(value: bool) -> void:
 	selected = value
@@ -83,6 +85,12 @@ func _set_move_target(target: Vector3) -> void:
 func _on_died() -> void:
 	AudioManager.instance.play_sfx("death")
 	defeated.emit(self)
+	if visual_anim != null and visual_anim.has_method("trigger_death"):
+		var started := bool(visual_anim.call("trigger_death"))
+		if started and visual_anim.has_signal("death_finished"):
+			set_physics_process(false)
+			velocity = Vector3.ZERO
+			await visual_anim.death_finished
 	queue_free()
 
 func _on_health_changed(current: float, maximum: float) -> void:
