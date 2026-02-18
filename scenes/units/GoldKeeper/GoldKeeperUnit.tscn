@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/unit.gd" id="1_unit"]
 [ext_resource type="PackedScene" path="res://assets/processed/GoldKeeper/GoldKeeper.glb" id="2_gold"]
 [ext_resource type="Script" path="res://scripts/health_component.gd" id="3_health"]
-[ext_resource type="Script" path="res://scripts/units/unit_anim_controller.gd" id="4_anim"]
+[ext_resource type="Script" path="res://scripts/units/unit_visual_anim.gd" id="4_anim"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 radius = 0.4
@@ -40,5 +40,6 @@ modulate = Color(0.8, 1, 0.8, 1)
 font_size = 30
 outline_size = 4
 
-[node name="AnimController" type="Node" parent="."]
+[node name="UnitVisualAnim" type="Node" parent="."]
 script = ExtResource("4_anim")
+visual_path = NodePath("../Visual")
