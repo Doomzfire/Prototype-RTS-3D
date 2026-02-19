@@ -185,7 +185,7 @@ func pan_by_screen_delta(screen_delta: Vector2) -> void:
 
 	var zoom_scale := clampf(cam.position.z / 30.0, 0.35, 3.0)
 	var pixel_to_world := 0.05 * rmb_drag_speed * zoom_scale
-	var world_delta := (right * screen_delta.x) + (forward * -screen_delta.y)
+	var world_delta := (right * screen_delta.x) + (forward * screen_delta.y)
 	target_position += world_delta * pixel_to_world
 
 	if bounds_enabled:
