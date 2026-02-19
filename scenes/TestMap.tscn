@@ -8,9 +8,6 @@
 [ext_resource type="Script" uid="uid://b3ipem2x76kea" path="res://scripts/combat_system.gd" id="6_com"]
 [ext_resource type="Script" uid="uid://bl2nllilhydyn" path="res://scripts/audio_manager.gd" id="7_aud"]
 [ext_resource type="PackedScene" path="res://scenes/DestinationMarker.tscn" id="8_mark"]
-[ext_resource type="Script" path="res://scripts/fx/order_feedback_manager.gd" id="9_feedback"]
-[ext_resource type="PackedScene" path="res://scenes/fx/MoveMarker.tscn" id="10_move"]
-[ext_resource type="PackedScene" path="res://scenes/fx/AttackMarker.tscn" id="11_attack"]
 
 [sub_resource type="Environment" id="Environment_default"]
 background_mode = 2
@@ -29,7 +26,6 @@ size = Vector3(100, 1, 100)
 
 [node name="RTS_Camera" type="Node3D" parent="." unique_id=358240614]
 script = ExtResource("3_cam")
-focus_selection_manager_path = NodePath("../Managers/SelectionManager")
 
 [node name="Yaw" type="Node3D" parent="RTS_Camera" unique_id=1801184336]
 
@@ -66,17 +62,11 @@ script = ExtResource("4_sel")
 camera_path = NodePath("../../RTS_Camera/Yaw/Pitch/Camera3D")
 selection_box_path = NodePath("../../HUD/SelectionBox")
 
-[node name="OrderFeedbackManager" type="Node" parent="Managers"]
-script = ExtResource("9_feedback")
-move_marker_scene = ExtResource("10_move")
-attack_marker_scene = ExtResource("11_attack")
-
 [node name="OrderManager" type="Node" parent="Managers" unique_id=415963808]
 script = ExtResource("5_ord")
 camera_path = NodePath("../../RTS_Camera/Yaw/Pitch/Camera3D")
 selection_manager_path = NodePath("../SelectionManager")
 marker_scene = ExtResource("8_mark")
-feedback_manager_path = NodePath("../OrderFeedbackManager")
 
 [node name="CombatSystem" type="Node" parent="Managers" unique_id=515075599]
 script = ExtResource("6_com")

@@ -71,7 +71,7 @@ Réduire les risques (rig cassé, scale, textures) et garder un flux simple.
 ### Flux recommandé
 1) **Meshy**: Image→3D → Remesh (selon rôle) → export **FBX** (rig + peau + anim) ou **GLB** si stable
 2) **Render (Gabriel)**: correctifs rig/weights/anim → export final (GLB idéal)
-3) **Godot (Samuel)**: importer dans `assets/raw_from_render/<UnitName>/` → créer `scenes/units/<UnitName>/<UnitName>.tscn`
+3) **Godot (Samuel)**: importer dans `assets/raw_for_blender/<UnitName>/` → créer `scenes/units/<UnitName>/<UnitName>.tscn`
 
 ### Règles
 - Ne jamais remesh après rig/anim (risque de tout casser).
@@ -80,7 +80,7 @@ Réduire les risques (rig cassé, scale, textures) et garder un flux simple.
 - Textures: GLB peut être “embedded”; garder aussi les PNG si besoin d’override.
 
 ## 9) Arborescence projet (convention)
-- Assets bruts: `assets/raw_from_render/`
+- Assets bruts: `assets/raw_for_blender/`
 - Scènes units: `scenes/units/`
 - Scripts: `scripts/`
 - Docs: `docs/`

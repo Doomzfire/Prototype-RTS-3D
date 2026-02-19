@@ -7,7 +7,7 @@
 - Replaced placeholder unit visuals with GoldKeeper model + prototype animation driving (Idle/Walk).
 
 ## Changed
-- Standardised raw asset placement under `assets/raw_from_render/<UnitName>/`.
+- Standardised raw asset placement under `assets/raw_for_blender/<UnitName>/`.
 - Created a clean unit scene wrapper under `scenes/units/<UnitName>/` (do not place raw GLB/FBX directly in maps).
 
 ## Fixed

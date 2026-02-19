@@ -106,7 +106,7 @@ In a **TestMap** scene, the player can:
 - **Scale:** 1 unit = 1 m
 - **Animation names:** Idle, Walk, Attack, Death
 - Folders:
-  - `assets/raw_from_render/` (Gabriel)
+  - `assets/raw_for_blender/` (Gabriel)
   - `assets/processed/` (Godot ready)
 
 ---
