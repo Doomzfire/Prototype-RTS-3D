@@ -2,15 +2,42 @@ extends Node
 class_name OrderManager
 
 @export var camera_path: NodePath
+@export var camera_manager_path: NodePath
 @export var selection_manager_path: NodePath
 @export var marker_scene: PackedScene
 
 @onready var camera: Camera3D = get_node(camera_path)
+@onready var camera_manager: CameraManager = get_node(camera_manager_path)
 @onready var selection_manager: SelectionManager = get_node(selection_manager_path)
 
+var _rmb_pressed := false
+var _rmb_dragging := false
+var _rmb_press_pos := Vector2.ZERO
+
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-		_handle_right_click(event.position)
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
+		if event.pressed:
+			_rmb_pressed = true
+			_rmb_dragging = false
+			_rmb_press_pos = event.position
+			camera_manager.begin_rmb_drag()
+		elif _rmb_pressed:
+			camera_manager.end_rmb_drag()
+			var threshold := camera_manager.rmb_drag_threshold_px
+			var moved_too_far := _rmb_press_pos.distance_to(event.position) > threshold
+			var should_issue_order := not _rmb_dragging and not moved_too_far
+			_rmb_pressed = false
+			_rmb_dragging = false
+			if should_issue_order:
+				_handle_right_click(event.position)
+		return
+
+	if event is InputEventMouseMotion and _rmb_pressed:
+		var threshold := camera_manager.rmb_drag_threshold_px
+		if not _rmb_dragging and _rmb_press_pos.distance_to(event.position) > threshold:
+			_rmb_dragging = true
+		if _rmb_dragging:
+			camera_manager.update_rmb_drag(event.relative)
 
 func _handle_right_click(mouse_pos: Vector2) -> void:
 	var units := selection_manager.get_selected_units()
