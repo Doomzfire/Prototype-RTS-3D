@@ -58,7 +58,7 @@ Start → Select → Order → Move/Engage → Combat → Win/Lose
   - **Idle** random (Idle_01/02/03) with auto-chaining while stationary
   - **Walk** (Walk_01) while moving
   - **Attack** random (Attack_01/02/03) when an attack is triggered
-  - **Death**: Death_01 then Death_02 (sequence)
+  - **Death**: Death_01 (single merged death animation)
 - **Orientation fixed**: visuals wrapped under a `Visual` node rotated **Y = 180°** (forward-axis fix)
 
 ### Standard animation set (v0.2.0 target)
@@ -76,7 +76,7 @@ Minimise risk (broken rig, scale issues, textures) with a simple exchange format
 ### Recommended flow
 1) **Meshy**: Image→3D → Remesh (per role) → export **FBX** (rig + skin + anim) or **GLB** if stable
 2) **Render (Gabriel)**: rig/weights/animation fixes → export final (GLB preferred)
-3) **Godot (Samuel)**: import into `assets/raw_from_render/<UnitName>/` → create `scenes/units/<UnitName>/<UnitName>.tscn`
+3) **Godot (Samuel)**: import into `assets/raw_for_blender/<UnitName>/` → create `scenes/units/<UnitName>/<UnitName>.tscn`
 
 ### Rules
 - Never remesh after rig/animation.
@@ -86,7 +86,7 @@ Minimise risk (broken rig, scale issues, textures) with a simple exchange format
 - **Forward axis**: if a model is flipped, fix it by rotating the `Visual` wrapper (not the gameplay root).
 
 ## 9) Project structure (convention)
-- Raw assets: `assets/raw_from_render/`
+- Raw assets: `assets/raw_for_blender/`
 - Unit scenes: `scenes/units/`
 - Scripts: `scripts/`
 - Docs: `docs/`
