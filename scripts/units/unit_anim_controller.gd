@@ -46,6 +46,10 @@ func set_move_speed(speed: float) -> void:
 	else:
 		_play_idle_random()
 
+
+func request_attack() -> bool:
+	return trigger_attack()
+
 func trigger_attack() -> bool:
 	if anim_player == null or _is_dying:
 		return false
