@@ -1,3 +1,22 @@
+# Patch Notes — v0.1.4 (Camera Upgrade)
+**Release date:** 2026-02-19  
+**Engine:** Godot 4.6
+
+## Added
+- (Camera) RMB drag-pan with click-vs-drag gating to preserve RMB click-to-order.
+- (Camera) Focus on current selection via **Space** (`cam_focus`).
+
+## Changed
+- (Camera) Fixed edge-pan vertical direction (top = forward, bottom = backward).
+- (Camera) Added smoothing target flow with optional map bounds clamp support.
+- (Camera) Removed Q/E keyboard rotate path; middle-mouse orbit remains.
+
+## Fixed
+- (Camera) Fixed RMB drag-pan vertical inversion.
+- (Camera) Fixed RMB drag-pan horizontal inversion.
+
+---
+
 # Patch Notes — v0.1.3 (Hotfix)
 **Release date:** 2026-02-18  
 **Engine:** Godot 4.6

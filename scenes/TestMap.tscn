@@ -27,6 +27,9 @@ size = Vector3(100, 1, 100)
 [node name="RTS_Camera" type="Node3D" parent="." unique_id=358240614]
 script = ExtResource("3_cam")
 selection_manager_path = NodePath("../Managers/SelectionManager")
+bounds_enabled = true
+bounds_min = Vector2(-45, -45)
+bounds_max = Vector2(45, 45)
 
 [node name="Yaw" type="Node3D" parent="RTS_Camera" unique_id=1801184336]
 
