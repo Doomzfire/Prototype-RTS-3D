@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/fx/pooled_marker.gd" id="1_s"]
+
+[sub_resource type="CylinderMesh" id="1_mesh"]
+top_radius = 0.45
+bottom_radius = 0.45
+height = 0.05
+
+[node name="AttackMarker" type="MeshInstance3D"]
+script = ExtResource("1_s")
+mesh = SubResource("1_mesh")
+cast_shadow = 0
+modulate = Color(1, 0.25, 0.2, 1)
