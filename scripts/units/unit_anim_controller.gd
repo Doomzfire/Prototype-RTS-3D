@@ -10,12 +10,12 @@ var anim_player: AnimationPlayer
 var _idle_anims: Array[StringName] = [&"Idle_01", &"Idle_02", &"Idle_03"]
 var _walk_anim: StringName = &"Walk_01"
 var _attack_anims: Array[StringName] = [&"Attack_01", &"Attack_02", &"Attack_03"]
-var _death_anims: Array[StringName] = [&"Death_01", &"Death_02"]
+var _death_anim: StringName = &"Death_01"
 
 var _is_walking := false
 var _is_attacking := false
 var _is_dying := false
-var _pending_death_stage := 0
+var _is_dead := false
 var _warned_missing_anim_player := false
 
 signal death_finished
@@ -58,17 +58,21 @@ func trigger_attack() -> bool:
 
 func trigger_death() -> bool:
 	if anim_player == null:
+		_is_dead = true
 		death_finished.emit()
 		return false
 	if _is_dying:
 		return true
 
 	_is_dying = true
+	_is_dead = false
 	_is_attacking = false
 	_is_walking = false
-	_pending_death_stage = 1
-	_play_if_needed(_death_anims[0])
+	_play_if_needed(_death_anim)
 	return true
+
+func request_death_sequence() -> bool:
+	return trigger_death()
 
 func _resolve_anim_player() -> AnimationPlayer:
 	if animation_player_path != NodePath(""):
@@ -93,11 +97,8 @@ func _resolve_anim_player() -> AnimationPlayer:
 
 func _on_animation_finished(anim_name: StringName) -> void:
 	if _is_dying:
-		if _pending_death_stage == 1 and anim_name == _death_anims[0] and anim_player.has_animation(String(_death_anims[1])):
-			_pending_death_stage = 2
-			_play_if_needed(_death_anims[1])
-			return
-		if _pending_death_stage >= 1 and anim_name == _death_anims[min(_pending_death_stage, _death_anims.size() - 1)]:
+		if not _is_dead and anim_name == _death_anim:
+			_is_dead = true
 			death_finished.emit()
 		return
 
@@ -149,8 +150,7 @@ func _configure_animation_loops() -> void:
 		_set_loop_mode(anim_name, Animation.LoopMode.LOOP_NONE)
 	for anim_name in _attack_anims:
 		_set_loop_mode(anim_name, Animation.LoopMode.LOOP_NONE)
-	for anim_name in _death_anims:
-		_set_loop_mode(anim_name, Animation.LoopMode.LOOP_NONE)
+	_set_loop_mode(_death_anim, Animation.LoopMode.LOOP_NONE)
 
 func _set_loop_mode(anim_name: StringName, mode: Animation.LoopMode) -> void:
 	if anim_player == null or not anim_player.has_animation(String(anim_name)):

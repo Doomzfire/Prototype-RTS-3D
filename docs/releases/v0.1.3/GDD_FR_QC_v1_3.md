@@ -58,7 +58,7 @@ Start → Select → Order → Move/Engage → Combat → Win/Lose
   - **Idle** aléatoire (Idle_01/02/03) + enchaînement automatique à l’arrêt
   - **Walk** (Walk_01) quand l’unité se déplace
   - **Attack** aléatoire (Attack_01/02/03) quand une attaque est déclenchée
-  - **Death**: Death_01 puis Death_02 (séquence)
+  - **Death**: Death_01 (animation de mort fusionnée)
 - **Orientation corrigée**: le visuel est wrapper dans un node `Visual` avec rotation **Y = 180°** (forward-axis fix)
 
 ### Standard animation (cible v0.2.0)
@@ -76,7 +76,7 @@ Réduire les risques (rig cassé, scale, textures) et garder un flux simple.
 ### Flux recommandé
 1) **Meshy**: Image→3D → Remesh (selon rôle) → export **FBX** (rig + peau + anim) ou **GLB** si stable
 2) **Render (Gabriel)**: correctifs rig/weights/anim → export final (GLB idéal)
-3) **Godot (Samuel)**: importer dans `assets/raw_from_render/<UnitName>/` → créer `scenes/units/<UnitName>/<UnitName>.tscn`
+3) **Godot (Samuel)**: importer dans `assets/raw_for_blender/<UnitName>/` → créer `scenes/units/<UnitName>/<UnitName>.tscn`
 
 ### Règles
 - Ne jamais remesh après rig/anim (risque de tout casser).
@@ -86,7 +86,7 @@ Réduire les risques (rig cassé, scale, textures) et garder un flux simple.
 - **Forward axis**: si un modèle est inversé, corriger en mettant la rotation sur le node `Visual` (pas sur le root gameplay).
 
 ## 9) Arborescence projet (convention)
-- Assets bruts: `assets/raw_from_render/`
+- Assets bruts: `assets/raw_for_blender/`
 - Scènes units: `scenes/units/`
 - Scripts: `scripts/`
 - Docs: `docs/`

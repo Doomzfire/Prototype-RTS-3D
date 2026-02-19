@@ -10,5 +10,5 @@
 - [x] Audio buses + core SFX (anti-spam)
 - [x] No console errors on launch
 - [x] First animated 3D unit integrated (GoldKeeper)
-- [x] GoldKeeper animations wired: Idle random + Walk + Attack random + Death_01→Death_02
+- [x] GoldKeeper animations wired: Idle random + Walk + Attack random + Death_01
 - [x] GoldKeeper forward-axis corrected (Visual Y=180°)
