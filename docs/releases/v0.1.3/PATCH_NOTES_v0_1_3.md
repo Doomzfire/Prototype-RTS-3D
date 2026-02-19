@@ -8,7 +8,7 @@
 
 ## Changed
 - (Idle) Randomised idle selection with auto-chaining while stationary (Idle_01/02/03).
-- (Death) Death plays **Death_01** (single merged death animation).
+- (Death) Death plays **Death_01** then **Death_02** (Inactif_01 ignored for now).
 
 ## Fixed
 - (Orientation) Corrected model forward axis using a **Visual** wrapper rotated **Y = 180°**:
