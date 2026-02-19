@@ -32,7 +32,7 @@ func _handle_right_click(mouse_pos: Vector2) -> void:
 	if hit.is_empty():
 		return
 
-	var collider: CollisionObject3D = hit["collider"] as CollisionObject3D
+	var collider = hit.get("collider")
 	if collider is Unit and collider.team != 0:
 		for unit in units:
 			if is_instance_valid(unit):
@@ -76,7 +76,7 @@ func _issue_group_move(units: Array[Unit], destination: Vector3) -> void:
 
 func _offset_for_index(index: int, count: int) -> Vector2:
 	if formation_mode == FormationMode.LINE:
-		var width: int = max(formation_line_width, 1)
+		var width := max(formation_line_width, 1)
 		var row := floori(float(index) / float(width))
 		var col := index % width
 		return Vector2((col - (width - 1) * 0.5) * formation_spacing, row * formation_spacing)
@@ -98,7 +98,6 @@ func _raycast(mouse_pos: Vector2) -> Dictionary:
 	var end := origin + camera.project_ray_normal(mouse_pos) * 500.0
 	var query := PhysicsRayQueryParameters3D.create(origin, end)
 	query.collide_with_areas = false
-	var world := get_viewport().get_world_3d()
-	var space_state: PhysicsDirectSpaceState3D = world.direct_space_state
-	var hit: Dictionary = space_state.intersect_ray(query)
-	return hit
+	var space_state := get_viewport().get_world_3d().direct_space_state
+	var result: Dictionary = space_state.intersect_ray(query)
+	return result
