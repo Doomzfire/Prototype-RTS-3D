@@ -15,6 +15,9 @@ class_name CameraManager
 @export var bounds_enabled := false
 @export var bounds_min := Vector2(-40, -40)
 @export var bounds_max := Vector2(40, 40)
+@export var rmb_drag_enabled := true
+@export var rmb_drag_threshold_px := 10.0
+@export var rmb_drag_speed := 1.0
 
 @onready var yaw_node: Node3D = $Yaw
 @onready var pitch_node: Node3D = $Yaw/Pitch
@@ -24,6 +27,9 @@ var target_zoom := 30.0
 var target_position := Vector3.ZERO
 var yaw := 0.0
 var pitch := 0.0
+var is_camera_dragging := false
+
+var _rmb_drag_active := false
 
 @onready var selection_manager: SelectionManager = get_node_or_null(selection_manager_path)
 
@@ -143,3 +149,44 @@ func _clamp_to_bounds(pos: Vector3) -> Vector3:
 	pos.x = clamp(pos.x, bounds_min.x, bounds_max.x)
 	pos.z = clamp(pos.z, bounds_min.y, bounds_max.y)
 	return pos
+
+
+func begin_rmb_drag() -> void:
+	if not rmb_drag_enabled:
+		return
+	_rmb_drag_active = true
+	is_camera_dragging = false
+
+
+func update_rmb_drag(screen_delta: Vector2) -> void:
+	if not rmb_drag_enabled or not _rmb_drag_active:
+		return
+	if screen_delta.is_zero_approx():
+		return
+
+	pan_by_screen_delta(screen_delta)
+	is_camera_dragging = true
+
+
+func end_rmb_drag() -> void:
+	_rmb_drag_active = false
+	is_camera_dragging = false
+
+
+func pan_by_screen_delta(screen_delta: Vector2) -> void:
+	var yaw_basis := yaw_node.global_basis
+	var forward := -yaw_basis.z
+	forward.y = 0.0
+	forward = forward.normalized()
+
+	var right := yaw_basis.x
+	right.y = 0.0
+	right = right.normalized()
+
+	var zoom_scale := clampf(cam.position.z / 30.0, 0.35, 3.0)
+	var pixel_to_world := 0.05 * rmb_drag_speed * zoom_scale
+	var world_delta := (right * screen_delta.x) + (forward * -screen_delta.y)
+	target_position += world_delta * pixel_to_world
+
+	if bounds_enabled:
+		target_position = _clamp_to_bounds(target_position)

@@ -66,6 +66,7 @@ selection_box_path = NodePath("../../HUD/SelectionBox")
 [node name="OrderManager" type="Node" parent="Managers" unique_id=415963808]
 script = ExtResource("5_ord")
 camera_path = NodePath("../../RTS_Camera/Yaw/Pitch/Camera3D")
+camera_manager_path = NodePath("../../RTS_Camera")
 selection_manager_path = NodePath("../SelectionManager")
 marker_scene = ExtResource("8_mark")
 
