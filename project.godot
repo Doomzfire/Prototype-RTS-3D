@@ -23,6 +23,10 @@ config/features=PackedStringArray("4.6")
 
 bus_layout="res://audio/default_bus_layout.tres"
 
+[filesystem]
+
+import/blender/enabled=false
+
 [input]
 
 move_forward={
