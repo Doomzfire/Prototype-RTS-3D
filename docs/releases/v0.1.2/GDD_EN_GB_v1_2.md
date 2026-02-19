@@ -71,7 +71,7 @@ Minimise risk (broken rig, scale issues, textures) with a simple exchange format
 ### Recommended flow
 1) **Meshy**: Image→3D → Remesh (per role) → export **FBX** (rig + skin + anim) or **GLB** if stable
 2) **Render (Gabriel)**: rig/weights/animation fixes → export final (GLB preferred)
-3) **Godot (Samuel)**: import into `assets/raw_for_blender/<UnitName>/` → create `scenes/units/<UnitName>/<UnitName>.tscn`
+3) **Godot (Samuel)**: import into `assets/raw_from_render/<UnitName>/` → create `scenes/units/<UnitName>/<UnitName>.tscn`
 
 ### Rules
 - Never remesh after rig/animation.
@@ -80,7 +80,7 @@ Minimise risk (broken rig, scale issues, textures) with a simple exchange format
 - Textures: GLB may embed textures; keep PNGs for manual override when needed.
 
 ## 9) Project structure (convention)
-- Raw assets: `assets/raw_for_blender/`
+- Raw assets: `assets/raw_from_render/`
 - Unit scenes: `scenes/units/`
 - Scripts: `scripts/`
 - Docs: `docs/`

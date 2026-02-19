@@ -8,7 +8,7 @@
 
 ## Changed
 - (Idle) Randomised idle selection with auto-chaining while stationary (Idle_01/02/03).
-- (Death) Death plays **Death_01** (single merged death animation).
+- (Death) Death plays **Death_01** then **Death_02** (Inactif_01 ignored for now).
 
 ## Fixed
 - (Orientation) Corrected model forward axis using a **Visual** wrapper rotated **Y = 180°**:
@@ -33,7 +33,7 @@
 - Replaced placeholder unit visuals with GoldKeeper model + prototype animation driving (Idle/Walk).
 
 ## Changed
-- Standardised raw asset placement under `assets/raw_for_blender/<UnitName>/`.
+- Standardised raw asset placement under `assets/raw_from_render/<UnitName>/`.
 - Created a clean unit scene wrapper under `scenes/units/<UnitName>/` (do not place raw GLB/FBX directly in maps).
 
 ## Fixed

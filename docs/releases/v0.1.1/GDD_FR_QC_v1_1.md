@@ -106,7 +106,7 @@ Le prototype est “DONE” quand, dans une scène **TestMap**, le joueur peut :
 - **Échelle:** 1 unité = 1 m
 - **Noms anim:** Idle, Walk, Attack, Death
 - Dossiers:
-  - `assets/raw_for_blender/` (Gabriel)
+  - `assets/raw_from_render/` (Gabriel)
   - `assets/processed/` (Godot ready)
 
 ---
