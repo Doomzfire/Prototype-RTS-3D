@@ -7,9 +7,11 @@
 
 ## Controls
 - `WASD`: Camera pan
-- Mouse to screen edge: Edge pan (toggle in `CameraManager.gd`)
+- Mouse to screen edge: Edge pan
 - Mouse wheel: Smooth zoom
-- `Q/E`: Rotate camera (toggle in `CameraManager.gd`)
+- Hold **RMB** + drag: Camera drag-pan (orders are suppressed while dragging)
+- Hold **MMB**: Orbit/pivot camera
+- `Space`: Focus camera on current selection
 - Left click: Single select
 - `Shift + Left click`: Add/remove selection
 - Left mouse drag: Box selection
@@ -29,3 +31,6 @@
 ## Notes
 - Movement uses simple steering for MVP; no navmesh is required.
 - Audio uses generated placeholder beeps in code to avoid external dependencies.
+
+## Camera bounds
+- TestMap enables map bounds clamping; tune `bounds_min/bounds_max` on the RTS_Camera node per map.
