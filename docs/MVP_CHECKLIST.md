@@ -1,5 +1,5 @@
 # MVP Checklist (Prototype RTS)
-- [x] RTS camera: pan/zoom + edge-pan + RMB drag-pan + bounds
+- [x] RTS camera: pan/zoom + bounds + RMB drag-pan + Space focus
 - [x] Click selection + shift multi-select
 - [x] Box selection
 - [x] Contextual orders: RMB ground move / RMB enemy attack
@@ -12,3 +12,6 @@
 - [x] First animated 3D unit integrated (GoldKeeper)
 - [x] GoldKeeper animations wired: Idle random + Walk + Attack random + Death_01
 - [x] GoldKeeper forward-axis corrected (Visual Y=180°)
+
+## Next
+- [ ] Integrate Cinderghast (unit scene + animation wiring + orientation check)

@@ -6,12 +6,15 @@
 3. Run `scenes/TestMap.tscn` (default main scene is configured).
 
 ## Controls
+### Camera
 - `WASD`: Camera pan
-- Mouse to screen edge: Edge pan
+- Mouse to screen edge: Edge pan (toggle in `CameraManager.gd`)
 - Mouse wheel: Smooth zoom
-- Hold **RMB** + drag: Camera drag-pan (orders are suppressed while dragging)
-- Hold **MMB**: Orbit/pivot camera
-- `Space`: Focus camera on current selection
+- **RMB drag**: Drag-pan camera (RMB click orders are suppressed while dragging)
+- **Space**: Focus on selection (`cam_focus`)
+- Middle mouse: Orbit (if enabled)
+
+### Gameplay
 - Left click: Single select
 - `Shift + Left click`: Add/remove selection
 - Left mouse drag: Box selection
@@ -22,7 +25,7 @@
 ## Architecture
 - `CameraManager`: RTS camera movement and bounds
 - `SelectionManager`: Single + box selection
-- `OrderManager`: Move / attack command dispatch
+- `OrderManager`: Move / attack command dispatch (RMB click vs drag gating)
 - `CombatSystem`: Win/lose checks and combat lifecycle
 - `AudioManager`: Routed one-shot SFX with cooldown
 - `Unit`: Unit movement + targeting + attacking
@@ -30,7 +33,4 @@
 
 ## Notes
 - Movement uses simple steering for MVP; no navmesh is required.
-- Audio uses generated placeholder beeps in code to avoid external dependencies.
-
-## Camera bounds
-- TestMap enables map bounds clamping; tune `bounds_min/bounds_max` on the RTS_Camera node per map.
+- Some GLB imports may embed textures; keep PNG PBR maps for manual override when needed.

@@ -5,6 +5,7 @@
 ## Added
 - (Camera) RMB drag-pan with click-vs-drag gating to preserve RMB click-to-order.
 - (Camera) Focus on current selection via **Space** (`cam_focus`).
+- (Assets) Added **Cinderghast** asset bundle (model + textures + animation set) to staging (not yet wired to gameplay).
 
 ## Changed
 - (Camera) Fixed edge-pan vertical direction (top = forward, bottom = backward).
@@ -40,7 +41,6 @@
 - Final animation naming/mapping may still require manual tuning depending on export naming.
 - Some GLB imports may embed textures; manual PBR map reassignment may be required in Godot.
 
-
 ---
 
 # Patch Notes — v0.1.2 (Prototype)
@@ -52,7 +52,7 @@
 - Replaced placeholder unit visuals with GoldKeeper model + prototype animation driving (Idle/Walk).
 
 ## Changed
-- Standardised raw asset placement under `assets/raw_for_blender/<UnitName>/`.
+- Standardised staging placement under `assets/meshy_ai/<UnitName>/` and `assets/raw_from_render/<UnitName>-Render/`.
 - Created a clean unit scene wrapper under `scenes/units/<UnitName>/` (do not place raw GLB/FBX directly in maps).
 
 ## Fixed

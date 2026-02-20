@@ -14,3 +14,9 @@
 
 ## Recommended Git tags
 - Tag stable commits as: `v0.1.4`
+
+## Release archive rule
+- After tagging, copy the current docs snapshot into:
+  - `docs/releases/<tag>/`
+  - Example: `docs/releases/v0.1.4/`
+- Keep filenames stable inside the archive folder (folder name holds the version).

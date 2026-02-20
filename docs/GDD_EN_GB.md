@@ -3,7 +3,7 @@
 **Engine:** Godot 4.6  
 **Language:** GDScript  
 **Game Version:** v0.1.4 (Playable prototype)  
-P26-02-19 (America/Montreal)
+**Last Updated:** 2026-02-19 (America/Montreal)
 
 ---
 
@@ -16,7 +16,7 @@ Playable 3D RTS prototype validating the **core loop**: RTS camera, unit selecti
 ### Samuel Latreille
 - Godot implementation (gameplay, UI, integration, performance)
 - Audio (SFX + music + buses)
-- Git repo + builds
+- Git repo + builds/releases
 
 ### Gabriel Chevalier
 - Render/animation/character fixes
@@ -35,34 +35,47 @@ In **TestMap**, the player can:
 Start → Select → Order → Move/Engage → Combat → Win/Lose
 
 ## 5) Controls (MVP)
-- WASD: camera pan
-- Mouse wheel: zoom
+### Camera
+- `WASD`: camera pan
+- Screen-edge pan: camera pan
+- Mouse wheel: smooth zoom
+- **RMB drag: camera pan** (suppresses orders while dragging)
+- **Space: focus on selection** (`cam_focus`)
+- Middle mouse: orbit (if enabled in script)
+
+### Gameplay
 - LMB: select
-- Shift + LMB: add/remove
+- `Shift + LMB`: add/remove selection
 - LMB drag: box selection
-- RMB: contextual move/attack
-- Space: focus current selection (camera)
-- Hold RMB + drag: camera drag-pan (no orders while dragging)
-- Middle mouse (MMB): orbit camera (hold)
+- RMB: contextual order (ground = move, enemy = attack)
 
 ## 6) Systems (MVP)
-- RTS Camera: pan/zoom/clamp
-- Selection: raycast + box select + indicator
-- Orders: move/attack + simple formation (spread offsets)
-- Movement: destination (+ NavAgent3D if NavMesh)
-- Combat: range/cooldown/damage/HP/death
-- UI: selected count (optional HP bars)
-- Audio: buses + anti-spam
+- **RTS Camera**: pan/zoom + smoothing + bounds clamp + RMB drag-pan (click/drag gating)
+- **Selection**: raycast + box select + indicator
+- **Orders**: move/attack + simple formation offsets
+- **Movement**: destination (+ NavAgent3D later if using NavMesh)
+- **Combat**: range/cooldown/damage/HP/death
+- **UI**: selected count (optional HP bars)
+- **Audio**: buses + anti-spam
 
-## 7) 3D Units + Animation (v0.1.3)
-### Status (GoldKeeper)
+## 7) 3D Units + Animation
+### 7.1 Status (GoldKeeper) — integrated
 - Animated 3D unit integrated: **GoldKeeper**
 - Animations wired to gameplay:
   - **Idle** random (Idle_01/02/03) with auto-chaining while stationary
   - **Walk** (Walk_01) while moving
   - **Attack** random (Attack_01/02/03) when an attack is triggered
   - **Death**: Death_01 (single merged death animation)
-- **Orientation fixed**: visuals wrapped under a `Visual` node rotated **Y = 180°** (forward-axis fix)
+- **Orientation fixed**: visuals wrapped under `Visual` rotated **Y = 180°** (forward-axis fix)
+
+### 7.2 Status (Cinderghast) — assets added (staging)
+- **Assets present**: 3D model + textures + animation set (staging only)
+- **To do (integration)**:
+  - Validate final `GLB` + PBR texture binding
+  - Create `scenes/units/Cinderghast/CinderghastUnit.tscn`
+  - Wire animations to the controller (Idle/Walk/Attack/Death)
+  - Verify forward axis (apply Visual Y=180° if needed)
+  - Add a test spawn/prefab in `TestMap`
 
 ### Standard animation set (v0.2.0 target)
 - Idle, Walk, Attack, Death (normalised naming) + reusable controller for all units
@@ -74,28 +87,34 @@ Start → Select → Order → Move/Engage → Combat → Win/Lose
 
 ## 8) Asset Pipeline (Meshy → Render → Godot)
 ### Goal
-Minimise risk (broken rig, scale issues, textures) with a simple exchange format.
+Minimise risk (broken rig, scale, textures) with a simple exchange format.
+
+### Recommended folders (staging → runtime)
+- `assets/meshy_ai/<UnitName>/`: raw AI exports (zip/FBX/GLB + textures)
+- `assets/raw_from_render/<UnitName>-Render/`: Render outputs (Gabriel)
+- `assets/processed/<UnitName>/`: **runtime assets** (final GLB + textures)
+- `scenes/units/<UnitName>/`: unit wrapper scene (collisions + scripts)
 
 ### Recommended flow
-- AI export staging: `assets/meshy_ai/`
-1) **Meshy**: Image→3D → Remesh (per role) → export **FBX** (rig + skin + anim) or **GLB** if stable
+1) **Meshy (Image→3D)**: remesh per role → export **FBX** (rig+skin+anim) if Render prefers FBX, otherwise a stable GLB
 2) **Render (Gabriel)**: rig/weights/animation fixes → export final (GLB preferred)
-3) **Godot (Samuel)**: import into `assets/raw_for_blender/<UnitName>/` → create `scenes/units/<UnitName>/<UnitName>.tscn`
+3) **Godot (Samuel)**: import into `assets/processed/<UnitName>/` → create `scenes/units/<UnitName>/<UnitName>Unit.tscn`
 
 ### Rules
 - Never remesh after rig/animation.
 - Avoid unnecessary FBX↔GLB conversions.
-- Scale: aim for 1 unit = 1 metre; final scale (1,1,1) before export.
-- Textures: GLB may embed textures; keep PNGs for manual override when needed.
-- **Forward axis**: if a model is flipped, fix it by rotating the `Visual` wrapper (not the gameplay root).
+- Scale: aim 1 unit = 1 metre; final scale (1,1,1) before export.
+- Textures: GLB may embed; keep PNG PBR maps for manual override.
+- Forward axis: fix via a `Visual` wrapper (not the gameplay root).
 
 ## 9) Project structure (convention)
-- Raw assets: `assets/raw_for_blender/`
+- Runtime assets: `assets/processed/`
+- Staging assets: `assets/meshy_ai/`, `assets/raw_from_render/`
 - Unit scenes: `scenes/units/`
 - Scripts: `scripts/`
 - Docs: `docs/`
 
 ## 10) GDD Changelog
-- v1.4: Camera upgrade (RMB drag-pan + Space focus + smoothing + map bounds).
-- v1.3: Added gameplay animation rules (Idle/Walk/Attack/Death) + forward-axis fix (Visual Y=180°).
-- v1.2: Added 3D units/animation + Meshy→Render→Godot pipeline + performance budgets.
+- v0.1.4: RTS camera upgrade (RMB drag-pan + Space focus + smoothing/clamp).
+- v0.1.3: GoldKeeper animation wiring + forward-axis fix (Visual Y=180°).
+- v0.1.2: Meshy→Render→Godot pipeline + performance budgets.
